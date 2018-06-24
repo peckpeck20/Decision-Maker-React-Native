@@ -9,7 +9,12 @@ import {
     Icon,
     Item,
     Button,
-    H1
+    H1,
+    Left,
+    Body,
+    Right,
+    Title,
+    Subtitle
 } from 'native-base';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 
@@ -56,8 +61,17 @@ export default class MainScreen extends Component {
 
     render() {
         return (
-            <Container >
-                <Header/>
+            <Container style={{
+                paddingTop: 24
+            }}>
+                <Header>
+                    <Left/>
+                    <Body>
+                        <Title>Randomizer</Title>
+                        <Subtitle>Version 1.0</Subtitle>
+                    </Body>
+                    <Right/>
+                </Header>
                 <Content padder>
                     <Grid>
                         <Row
@@ -135,7 +149,13 @@ export default class MainScreen extends Component {
                         </Row>
                     </Grid>
                 </Content>
-                <Footer/>
+                <Footer>
+
+                    <Subtitle
+                        style={{
+                        paddingTop: 10
+                    }}>Made by Jose Zapata 2018</Subtitle>
+                </Footer>
             </Container>
         )
     }

@@ -14,7 +14,8 @@ import {
     Body,
     Right,
     Title,
-    Subtitle
+    Subtitle,
+    Switch
 } from 'native-base';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 
@@ -28,13 +29,20 @@ export default class MainScreen extends Component {
             .randomize
             .bind(this);
         this.state = {
-            optionOne: 'Apple',
-            optionTwo: 'Bananas',
-            isRemainder: ''
+            optionOne: '',
+            optionTwo: '',
+            isRemainder: '',
+            allOptions : [],
+            language : {
+                english : {title: 'Randomizer', madeBy: 'Made by ', vs: 'Versus', clearBt : 'Clear',alertTxt : 'Go for', emptyAlert : 'Field empty, Try again',optionTxt: 'Option'}, 
+                spanish : {title: 'Aleatorizador', madeBy: 'Echo por ', vs: 'Contra', clearBt : 'limpiar',alertTxt : 'Anda por', emptyAlert : 'Las opciones estan vacias, intenta de nuevo',optionTxt: 'Opción'}},
+            langToggle : false
         }
     }
 
     randomize() {
+        const defaultLanguage = this.state.langToggle;
+        const language = this.state.language;
         const randomNumber = Math.floor((Math.random() * 10) + 1);
         //check if number has a Remainder after division
         const isRemainder = randomNumber % 2;
@@ -44,13 +52,13 @@ export default class MainScreen extends Component {
         if (this.state.optionOne && this.state.optionTwo) {
 
             if (isRemainder === 1) {
-                alert(`Go for ${this.state.optionOne}`)
+                alert(`${defaultLanguage ? language.spanish.alertTxt : language.english.alertTxt} ${this.state.optionOne}`)
             } else {
-                alert(`Go for ${this.state.optionTwo}`)
+                alert(`${defaultLanguage ? language.spanish.alertTxt : language.english.alertTxt} ${this.state.optionTwo}`)
             }
             // this.clearAllFields();
         } else {
-            alert('Field empty, Try again')
+            alert(`${defaultLanguage ? language.spanish.emptyAlert : language.english.emptyAlert}`)
         }
 
     }
@@ -59,7 +67,15 @@ export default class MainScreen extends Component {
         this.setState({optionOne: '', optionTwo: '', randomNumber: 0})
     }
 
+    handleToggle = () => {
+        this.setState(prevState =>({
+            langToggle: !prevState.langToggle
+        }))
+    }
+
     render() {
+        const defaultLanguage = this.state.langToggle;
+        const language = this.state.language;
         return (
             <Container style={{
                 paddingTop: 24
@@ -67,10 +83,13 @@ export default class MainScreen extends Component {
                 <Header>
                     <Left/>
                     <Body>
-                        <Title>Randomizer</Title>
-                        <Subtitle>Version 1.0</Subtitle>
+                        <Title>{defaultLanguage ? language.spanish.title : language.english.title}</Title>
+                        <Subtitle>Version 1.1</Subtitle>
                     </Body>
-                    <Right/>
+                    <Right>
+                        <Switch value={this.state.langToggle} onValueChange={this.handleToggle}/>
+                        <Icon name='flag-checkered' type='FontAwesome' style={{color: 'white'}} />      
+                    </Right>
                 </Header>
                 <Content padder>
                     <Grid>
@@ -88,7 +107,7 @@ export default class MainScreen extends Component {
                                         color: 'green'
                                     }}/>
                                     <Input
-                                        placeholder='Option 1'
+                                        placeholder={`${defaultLanguage ? language.spanish.optionTxt : language.english.optionTxt} 1`}
                                         onChangeText={optionOne => this.setState({optionOne})}
                                         value={this.state.optionOne}/>
                                 </Item>
@@ -102,7 +121,7 @@ export default class MainScreen extends Component {
                         }}>
                             <Col size={1}></Col>
                             <Col size={1}>
-                                <H1>Versus</H1>
+                                <H1>{defaultLanguage ? language.spanish.vs : language.english.vs}</H1>
                             </Col>
                             <Col size={1}></Col>
 
@@ -121,7 +140,7 @@ export default class MainScreen extends Component {
                                         color: 'red'
                                     }}/>
                                     <Input
-                                        placeholder='Option 2'
+                                        placeholder={`${defaultLanguage ? language.spanish.optionTxt : language.english.optionTxt} 2`}
                                         onChangeText={optionTwo => this.setState({optionTwo})}
                                         value={this.state.optionTwo}/>
                                 </Item>
@@ -135,14 +154,15 @@ export default class MainScreen extends Component {
                             <Col>
                                 <Button iconLeft info onPress={this.clearAllFields}>
                                     <Icon name='format-clear' type="MaterialCommunityIcons"/>
-                                    <Text>clear</Text>
+                                    <Text>{defaultLanguage ? language.spanish.clearBt : language.english.clearBt}</Text>
+                                    
                                 </Button>
                             </Col>
                             <Col></Col>
                             <Col>
                                 <Button success iconLeft onPress={this.randomize}>
                                     <Icon name='check' type="MaterialCommunityIcons"/>
-                                    <Text>Go!!</Text>
+                                    <Text>OK!</Text>
                                 </Button>
                             </Col>
 
@@ -154,7 +174,7 @@ export default class MainScreen extends Component {
                     <Subtitle
                         style={{
                         paddingTop: 10
-                    }}>Made by Jose Zapata 2018</Subtitle>
+                    }}>{defaultLanguage ? language.spanish.madeBy : language.english.madeBy}Jose Zapata 2018</Subtitle>
                 </Footer>
             </Container>
         )

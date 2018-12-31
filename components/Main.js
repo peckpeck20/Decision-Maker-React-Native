@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     Container,
     Header,
@@ -17,7 +17,8 @@ import {
     Subtitle,
     Switch
 } from 'native-base';
-import {Col, Row, Grid} from 'react-native-easy-grid';
+import { Col, Row, Grid } from 'react-native-easy-grid';
+import styles from '../css/styles';
 
 export default class MainScreen extends Component {
     constructor(props) {
@@ -32,11 +33,12 @@ export default class MainScreen extends Component {
             optionOne: '',
             optionTwo: '',
             isRemainder: '',
-            allOptions : [],
-            language : {
-                english : {title: 'Randomizer', madeBy: 'Made by ', vs: 'Versus', clearBt : 'Clear',alertTxt : 'Go for', emptyAlert : 'Field empty, Try again',optionTxt: 'Option'}, 
-                spanish : {title: 'Aleatorizador', madeBy: 'Echo por ', vs: 'Contra', clearBt : 'limpiar',alertTxt : 'Anda por', emptyAlert : 'Las opciones estan vacias, intenta de nuevo',optionTxt: 'Opción'}},
-            langToggle : false
+            allOptions: [],
+            language: {
+                english: { title: 'Randomizer', madeBy: 'Made by ', vs: 'Versus', clearBt: 'Clear', alertTxt: 'Go for', emptyAlert: 'Field empty, Try again', optionTxt: 'Option' },
+                spanish: { title: 'Aleatorizador', madeBy: 'Echo por ', vs: 'Contra', clearBt: 'limpiar', alertTxt: 'Anda por', emptyAlert: 'Las opciones estan vacias, intenta de nuevo', optionTxt: 'Opción' }
+            },
+            langToggle: false
         }
     }
 
@@ -46,7 +48,7 @@ export default class MainScreen extends Component {
         const randomNumber = Math.floor((Math.random() * 10) + 1);
         //check if number has a Remainder after division
         const isRemainder = randomNumber % 2;
-        this.setState({isRemainder});
+        this.setState({ isRemainder });
 
         //input field validation
         if (this.state.optionOne && this.state.optionTwo) {
@@ -64,11 +66,11 @@ export default class MainScreen extends Component {
     }
 
     clearAllFields() {
-        this.setState({optionOne: '', optionTwo: '', randomNumber: 0})
+        this.setState({ optionOne: '', optionTwo: '', randomNumber: 0 })
     }
 
     handleToggle = () => {
-        this.setState(prevState =>({
+        this.setState(prevState => ({
             langToggle: !prevState.langToggle
         }))
     }
@@ -80,36 +82,36 @@ export default class MainScreen extends Component {
             <Container style={{
                 paddingTop: 24
             }}>
-                <Header>
-                    <Left/>
+                <Header style={styles.main}>
+                    <Left />
                     <Body>
-                        <Title>{defaultLanguage ? language.spanish.title : language.english.title}</Title>
-                        <Subtitle>Version 1.1</Subtitle>
+                        <Title style={styles.text}>{defaultLanguage ? language.spanish.title : language.english.title}</Title>
+                        <Subtitle style={styles.text}>Version 1.1</Subtitle>
                     </Body>
                     <Right>
-                        <Switch value={this.state.langToggle} onValueChange={this.handleToggle}/>
-                        <Icon name='flag-checkered' type='FontAwesome' style={{color: 'white'}} />      
+                        <Switch value={this.state.langToggle} onValueChange={this.handleToggle} />
+                        <Icon name='flag-checkered' type='FontAwesome' style={{ color: 'white' }} />
                     </Right>
                 </Header>
-                <Content padder>
+                <Content padder >
                     <Grid>
                         <Row
                             size={2}
                             style={{
-                            padding: 20
-                        }}>
+                                padding: 20
+                            }}>
                             <Col>
                                 <Item>
                                     <Icon
                                         active
                                         name='thumbs-up'
                                         style={{
-                                        color: 'green'
-                                    }}/>
+                                            color: 'green'
+                                        }} />
                                     <Input
                                         placeholder={`${defaultLanguage ? language.spanish.optionTxt : language.english.optionTxt} 1`}
-                                        onChangeText={optionOne => this.setState({optionOne})}
-                                        value={this.state.optionOne}/>
+                                        onChangeText={optionOne => this.setState({ optionOne })}
+                                        value={this.state.optionOne} />
                                 </Item>
                             </Col>
 
@@ -117,11 +119,11 @@ export default class MainScreen extends Component {
                         <Row
                             size={1}
                             style={{
-                            padding: 20
-                        }}>
+                                padding: 20
+                            }}>
                             <Col size={1}></Col>
                             <Col size={1}>
-                                <H1>{defaultLanguage ? language.spanish.vs : language.english.vs}</H1>
+                                <H1 style={styles.italic}>{defaultLanguage ? language.spanish.vs : language.english.vs}</H1>
                             </Col>
                             <Col size={1}></Col>
 
@@ -129,39 +131,39 @@ export default class MainScreen extends Component {
                         <Row
                             size={1}
                             style={{
-                            padding: 20
-                        }}>
+                                padding: 20
+                            }}>
                             <Col>
                                 <Item>
                                     <Icon
                                         active
                                         name='thumbs-down'
                                         style={{
-                                        color: 'red'
-                                    }}/>
+                                            color: 'red'
+                                        }} />
                                     <Input
                                         placeholder={`${defaultLanguage ? language.spanish.optionTxt : language.english.optionTxt} 2`}
-                                        onChangeText={optionTwo => this.setState({optionTwo})}
-                                        value={this.state.optionTwo}/>
+                                        onChangeText={optionTwo => this.setState({ optionTwo })}
+                                        value={this.state.optionTwo} />
                                 </Item>
                             </Col>
                         </Row>
                         <Row
                             size={2}
                             style={{
-                            padding: 20
-                        }}>
+                                padding: 20
+                            }}>
                             <Col>
                                 <Button iconLeft info onPress={this.clearAllFields}>
-                                    <Icon name='format-clear' type="MaterialCommunityIcons"/>
+                                    <Icon name='format-clear' type="MaterialCommunityIcons" />
                                     <Text>{defaultLanguage ? language.spanish.clearBt : language.english.clearBt}</Text>
-                                    
+
                                 </Button>
                             </Col>
                             <Col></Col>
                             <Col>
                                 <Button success iconLeft onPress={this.randomize}>
-                                    <Icon name='check' type="MaterialCommunityIcons"/>
+                                    <Icon name='check' type="MaterialCommunityIcons" />
                                     <Text>OK!</Text>
                                 </Button>
                             </Col>
@@ -169,12 +171,12 @@ export default class MainScreen extends Component {
                         </Row>
                     </Grid>
                 </Content>
-                <Footer>
+                <Footer style={styles.dark}>
 
                     <Subtitle
                         style={{
-                        paddingTop: 10
-                    }}>{defaultLanguage ? language.spanish.madeBy : language.english.madeBy}Jose Zapata 2018</Subtitle>
+                            paddingTop: 10
+                        }}>{defaultLanguage ? language.spanish.madeBy : language.english.madeBy}Jose Zapata 2018</Subtitle>
                 </Footer>
             </Container>
         )

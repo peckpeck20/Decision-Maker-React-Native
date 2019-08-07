@@ -1,33 +1,30 @@
 import React from 'react';
-import MainScreen from './components/Main';
+import { AppLoading } from 'expo';
+import { MainScreen } from './components/Main';
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isReady: false,
-    };
-  }
-
-  componentWillMount() {
-    this.loadFonts();
-  }
-  async loadFonts() {
-    await Expo.Font.loadAsync({
-      Roboto: require('native-base/Fonts/Roboto.ttf'),
-      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-      Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf'),
-    });
-    this.setState({ isReady: true });
-  }
-
-  render() {
-    if (!this.state.isReady) {
-      return <Expo.AppLoading />;
+    constructor(props) {
+        super(props);
+        this.state = {
+            isReady: false,
+        };
     }
-    return <MainScreen />;
-  }
-}
 
-test;
+    async componentWillMount() {
+        await Expo.Font.loadAsync({
+            Roboto: require('native-base/Fonts/Roboto.ttf'),
+            Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+            //Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf'),
+        });
+        this.setState({
+            isReady: true,
+        });
+    }
+
+    render() {
+        if (!this.state.isReady) {
+            return <AppLoading />;
+        }
+        return <MainScreen />;
+    }
+}

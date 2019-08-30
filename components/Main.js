@@ -56,8 +56,16 @@ export class MainScreen extends Component {
     }
 
     randomize = () => {
-        const { defaultLanguage, language, optionOne, optionTwo } = this.state;
+        const {
+            defaultLanguage,
+            language,
+            optionOne,
+            optionTwo,
+            allOptions,
+        } = this.state;
+        const optionsLength = allOptions.length;
         const randomNumber = Math.floor(Math.random() * 10 + 1);
+
         //check if number has a Remainder after division
         const isRemainder = randomNumber % 2;
         this.setState({ isRemainder });
@@ -104,11 +112,15 @@ export class MainScreen extends Component {
     };
 
     render() {
-        const { language, defaultLanguage, optionOne, optionTwo } = this.state;
+        const {
+            language,
+            defaultLanguage,
+            optionOne,
+            optionTwo,
+            allOptions,
+        } = this.state;
         return (
-            <Container
-                style={Platform.OS === 'android' ? { paddingTop: 24 } : null}
-            >
+            <Container>
                 <Header style={[customStyles.main]}>
                     <Left />
                     <Body>
@@ -165,19 +177,11 @@ export class MainScreen extends Component {
                                         value={optionOne}
                                         autoFocus={true}
                                         returnKeyType={'next'}
-                                        onSubmitEditing={e => {
-                                            console.log(e);
-                                        }}
                                     />
                                 </Item>
                             </Col>
                         </Row>
-                        <Row
-                            size={1}
-                            style={{
-                                padding: 20,
-                            }}
-                        >
+                        <Row size={1}>
                             <Col size={1} />
                             <Col size={1}>
                                 <H1 style={customStyles.italic}>
@@ -225,24 +229,14 @@ export class MainScreen extends Component {
                             }}
                         >
                             <Col>
-                                {/* <Button iconLeft info onPress={this.clearAllFields}>
-                  <Icon name='format-clear' type='MaterialCommunityIcons' />
-                  <Text>
-                    {defaultLanguage
-                      ? language.spanish.clearBt
-                      : language.english.clearBt}
-                  </Text>
-                </Button> */}
                                 <AwesomeButtonRick
                                     type='secondary'
                                     onPress={this.clearAllFields}
-                                    //paddingHorizontal={40}
                                     stretch={true}
                                 >
                                     <Icon
                                         name='format-clear'
                                         type='MaterialCommunityIcons'
-                                        // style={{ color: 'white' }}
                                     />
                                     <Text>
                                         {defaultLanguage
@@ -253,10 +247,6 @@ export class MainScreen extends Component {
                             </Col>
                             <Col />
                             <Col>
-                                {/* <Button success iconLeft onPress={this.randomize}>
-                  <Icon name='check' type='MaterialCommunityIcons' />
-                  <Text>OK!</Text>
-                </Button> */}
                                 <AwesomeButtonRick
                                     type='anchor'
                                     onPress={next =>
@@ -267,7 +257,7 @@ export class MainScreen extends Component {
                                     }
                                     stretch={true}
                                     progress={true}
-                                    //progressLoadingTime={1000}
+                                    progressLoadingTime={300}
                                 >
                                     <Icon
                                         name='check'
@@ -283,7 +273,6 @@ export class MainScreen extends Component {
                     style={[
                         customStyles.dark,
                         {
-                            //  flex: 1,
                             justifyContent: 'center',
                             alignItems: 'center',
                         },

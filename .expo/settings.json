@@ -3,5 +3,6 @@
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "urlRandomness": "bt-38r"
+  "urlRandomness": "bt-38r",
+  "https": false
 }

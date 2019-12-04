@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Decision maker",
-    "slug": "decision-maker-update",
+    "slug": "decision-maker",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": [
@@ -27,6 +27,9 @@
     },
     "androidStatusBar": {
       "barStyle": "dark-content"
+    },
+    "android": {
+      "package": "com.jz.decisionmaker"
     }
   }
 }

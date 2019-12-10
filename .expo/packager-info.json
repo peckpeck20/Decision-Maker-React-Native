@@ -2,9 +2,9 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 17445,
-  "expoServerNgrokUrl": "https://vq-kfj.peckpeck20.decision-maker-react-native.exp.direct",
-  "packagerNgrokUrl": "https://packager.vq-kfj.peckpeck20.decision-maker-react-native.exp.direct",
-  "ngrokPid": 17454,
+  "packagerPid": 17878,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
 }

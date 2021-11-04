@@ -285,3 +285,6 @@ lint/tmp/
 .expo/packager-info.json
 .expo/packager-info.json
 .expo/settings.json
+
+.expo-shared
+.idea

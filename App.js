@@ -1,9 +1,9 @@
-import React from 'react';
-import { ActivityIndicator, View } from 'react-native';
-import * as Font from 'expo-font';
-import { Ionicons } from '@expo/vector-icons';
+import React from "react";
+import { ActivityIndicator, View } from "react-native";
+import * as Font from "expo-font";
+import { Ionicons } from "@expo/vector-icons";
 
-import { MainScreen } from './components/Main';
+import { MainScreen } from "./components/Main";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -15,8 +15,8 @@ export default class App extends React.Component {
 
   async componentDidMount() {
     await Font.loadAsync({
-      Roboto: require('native-base/Fonts/Roboto.ttf'),
-      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
       ...Ionicons.font,
     });
     this.setState({
@@ -27,11 +27,13 @@ export default class App extends React.Component {
   render() {
     if (!this.state.isReady) {
       return (
-        <View styles={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+        <View
+          styles={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <ActivityIndicator size="large" />
         </View>
       );
